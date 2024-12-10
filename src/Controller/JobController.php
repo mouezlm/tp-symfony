@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController; 
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +19,11 @@ class JobController extends AbstractController
         $job->setDescription('LARAVEL');
         $job->setExpiresAt( new \DateTimeImmutable()); 
         $job->setEmail('haykel@gmail.com');
+        $image=new Image();
+        $image->setUrl('https://cdn.pixabay.com/photo/2015/10/30/10/03/gold-1013618_960_720.jpg');
+        $image->setAlt('job');
+        $entityManager->persist($image);
+        $job->setImage($image);
         $entityManager->persist($job);
         $entityManager->flush();
         return $this->render('job/index.html.twig',[

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\Image;
 use App\Repository\JobRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -28,7 +28,8 @@ class Job
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;
-
+    #[ORM\OneToOne(targetEntity: Image::class)]
+    private ?Image $image = null;
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +91,18 @@ class Job
     public function setEmail(string $email): static
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }
