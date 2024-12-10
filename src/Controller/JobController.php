@@ -24,4 +24,11 @@ class JobController extends AbstractController
             'id' =>$job->getId(),
         ]);
     }
+    #[Route('/job/{id}', name: 'job_show')]
+        public function show(EntityManagerInterface $entityManager, $id)
+        {
+        $job = $entityManager->getRepository(Job::class)->find($id);
+        return $this->render('job/show.html.twig', [
+        'job' =>$job ]);
+    }
 }
